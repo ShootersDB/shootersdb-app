@@ -1,0 +1,30 @@
+name: shooters-db
+proxy:
+  app:
+    - shootersdb.lndo.site:3000
+services:
+  database:
+    type: postgres
+  app:
+    type: compose
+    services:
+      image: ruby:2.7.2-alpine
+      command: "tail -f /dev/null"
+      user: root
+    build_as_root:
+      - apk add --no-cache build-base postgresql-dev yarn tzdata
+tooling:
+  rails:
+    service: app
+  bundle:
+    service: app
+  rake:
+    service: app
+  yarn:
+    service: app
+  setup:
+    service: app
+    cmd: bin/setup
+  server:
+    service: app
+    cmd: bin/rails server -b 0.0.0.0 -p 3000
