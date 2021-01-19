@@ -1,0 +1,32 @@
+<div class="main-nav">
+  <div class="main-nav-container">
+    <a href="/" class="main-nav-logo">
+      <%= image_tag 'shootersdb-logo-proto-small.png' %>
+    </a>
+    <button class="main-nav-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="main-nav-toggler-icon"></span>
+    </button>
+    <div class="main-nav-collapse" id="mainNav">
+      <ul class="main-nav-items">
+        <li class="main-nav-item">
+          <%= link_to 'Home', root_path %>
+        </li>
+        <li class="main-nav-item">
+        <%= link_to 'Features', '#' %>
+        </li>
+        <% if current_user %>
+        <li class="main-nav-item">
+          <%= link_to 'Sign Out', destroy_user_session_path, method: :delete%>
+        </li>
+        <% else %>
+        <li class="main-nav-item">
+          <%= link_to 'Log in', new_user_session_path %>
+        </li>
+        <li class="main-nav-item">
+          <%= link_to 'Sign Up',  new_user_registration_path %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

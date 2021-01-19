@@ -3,9 +3,9 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("@rails/activestorage").start()
-require("channels")
+require("@rails/ujs").start();
+require("@rails/activestorage").start();
+require("channels");
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -14,3 +14,20 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+const bootstrap = require('bootstrap');
+
+$(function () {
+  // Toasts
+  // TODO: move into separate toast file
+  var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  var toastList = toastElList.map(function (toastEl) {
+    var options = {
+      animation: true,
+      autohide: true,
+      delay: 5000
+    };
+    debugger;
+    return new bootstrap.Toast(toastEl, options);
+  });
+});
