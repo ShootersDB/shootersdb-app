@@ -1,0 +1,11 @@
+<h1><%= @checklist.name %></h1>
+
+<%= link_to 'Back', reloading_checklists_path %>
+
+<h2>Steps</h2>
+
+<ul>
+  <% @checklist.user_reloading_checklist_steps.each do |step| %>
+  <li><%= step.name %></li>
+  <% end %>
+</ul>

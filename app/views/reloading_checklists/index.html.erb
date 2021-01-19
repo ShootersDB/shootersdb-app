@@ -1,0 +1,5 @@
+<h1>Reloading Checklists</h1>
+
+<% @checklists.each do |checklist| %>
+  <%= link_to checklist.name, reloading_checklist_path(checklist) %><br>
+<% end %>

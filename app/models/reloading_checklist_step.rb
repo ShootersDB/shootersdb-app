@@ -1,0 +1,2 @@
+class ReloadingChecklistStep < ApplicationRecord
+end
