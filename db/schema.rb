@@ -10,12 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_050835) do
+ActiveRecord::Schema.define(version: 2021_01_20_054807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "bullets", force: :cascade do |t|
+    t.string "name"
+    t.bigint "manufacturer_id", null: false
+    t.float "diameter"
+    t.float "weight"
+    t.float "g1_bc"
+    t.float "g7_bc"
+    t.string "mpn"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["manufacturer_id"], name: "index_bullets_on_manufacturer_id"
+  end
+
   create_table "cartridges", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "manufacturer_load_data", force: :cascade do |t|
+    t.bigint "manufacturer_id", null: false
+    t.bigint "bullet_id", null: false
+    t.bigint "smokeless_powder_id", null: false
+    t.string "coal"
+    t.string "cbto"
+    t.float "powder_charge"
+    t.float "velocity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "max_charge", default: false
+    t.bigint "cartridge_id", null: false
+    t.index ["bullet_id"], name: "index_manufacturer_load_data_on_bullet_id"
+    t.index ["cartridge_id"], name: "index_manufacturer_load_data_on_cartridge_id"
+    t.index ["manufacturer_id"], name: "index_manufacturer_load_data_on_manufacturer_id"
+    t.index ["smokeless_powder_id"], name: "index_manufacturer_load_data_on_smokeless_powder_id"
+  end
+
+  create_table "manufacturers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -25,6 +62,31 @@ ActiveRecord::Schema.define(version: 2021_01_19_050835) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "smokeless_powders", force: :cascade do |t|
+    t.string "name"
+    t.bigint "manufacturer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["manufacturer_id"], name: "index_smokeless_powders_on_manufacturer_id"
+  end
+
+  create_table "user_load_data", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "bullet_id", null: false
+    t.bigint "smokeless_powder_id", null: false
+    t.string "coal"
+    t.string "cbto"
+    t.float "powder_charge"
+    t.float "velocity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "cartridge_id", null: false
+    t.index ["bullet_id"], name: "index_user_load_data_on_bullet_id"
+    t.index ["cartridge_id"], name: "index_user_load_data_on_cartridge_id"
+    t.index ["smokeless_powder_id"], name: "index_user_load_data_on_smokeless_powder_id"
+    t.index ["user_id"], name: "index_user_load_data_on_user_id"
   end
 
   create_table "user_reloading_checklist_steps", force: :cascade do |t|
@@ -72,6 +134,16 @@ ActiveRecord::Schema.define(version: 2021_01_19_050835) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "bullets", "manufacturers"
+  add_foreign_key "manufacturer_load_data", "bullets"
+  add_foreign_key "manufacturer_load_data", "cartridges"
+  add_foreign_key "manufacturer_load_data", "manufacturers"
+  add_foreign_key "manufacturer_load_data", "smokeless_powders"
+  add_foreign_key "smokeless_powders", "manufacturers"
+  add_foreign_key "user_load_data", "bullets"
+  add_foreign_key "user_load_data", "cartridges"
+  add_foreign_key "user_load_data", "smokeless_powders"
+  add_foreign_key "user_load_data", "users"
   add_foreign_key "user_reloading_checklist_steps", "user_reloading_checklists"
   add_foreign_key "user_reloading_checklist_steps", "users"
   add_foreign_key "user_reloading_checklists", "users"

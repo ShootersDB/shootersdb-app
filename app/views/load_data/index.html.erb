@@ -1,0 +1,20 @@
+<h1>Load Data</h1>
+
+<h2>Manufacturer Load Data</h2>
+
+<table>
+  <tr>
+    <th>Cartridge</th>
+    <th>Bullet</th>
+    <th>Manufacturer</th>
+    <th>Load Data</th>
+  </tr>
+<% @manufacturer_load_data_filter.items.each do |filter_item| %>
+  <tr>
+    <td><%= filter_item.cartridge.name %></td>
+    <td><%= filter_item.bullet.name %></td>
+    <td><%= filter_item.manufacturer.name %></td>
+    <td>View <%= pluralize(filter_item.count, 'load') %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,6 +1,11 @@
-<h1><%= @checklist.name %></h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'Reloading Checklists', reloading_checklists_path %></li>
+    <li class="breadcrumb-item" aria-current="page"><%= @checklist.name %></li>
+  </ol>
+</nav>
 
-<%= link_to 'Back', reloading_checklists_path %>
+<h1><%= @checklist.name %></h1>
 
 <h2>Steps</h2>
 

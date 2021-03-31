@@ -13,6 +13,9 @@ services:
       user: root
     build_as_root:
       - apk add --no-cache build-base postgresql-dev yarn tzdata
+excludes:
+  - node_modules
+  - tmp/cache
 tooling:
   rails:
     service: app

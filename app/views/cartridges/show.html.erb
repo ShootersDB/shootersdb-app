@@ -1,3 +1,8 @@
-<h1><%= @cartridge.name %></h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'Cartridges', cartridges_path %></li>
+    <li class="breadcrumb-item" aria-current="page"><%= @cartridge.name %></li>
+  </ol>
+</nav>
 
-<%= link_to 'Back', cartridges_path %>
+<h1><%= @cartridge.name %></h1>
